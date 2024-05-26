@@ -1,33 +1,23 @@
 import java.util.*;
-public class Assign4_4 {
-    public static void shortestPath(int a, int b, int c) {
-        if (a <= b && a <= c) {
-            System.out.println("The shortest path is Edinburgh-Glasgow-Stirling-Perth-Dundee: " + a);
-        } else if (b <= c && b <= a) {
-            System.out.println("The shortest path is Edinburgh-Stirling-Perth-Dundee: " + b);
-        } else {
-            System.out.println("The shortest path is Edinburgh-Perth-Dundee: " + c);
-        }
-    }
 
+public class Assign4_4{
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Grapha g = new Grapha();
+        String[][] edges = {
+                {"Edinburgh", "Stirling", "50"},
+                {"Stirling", "Glasgow", "50"},
+                {"Stirling", "Perth", "40"},
+                {"Perth", "Dundee", "60"},
+                {"Stirling", "Edinburgh", "70"}
+        };
 
-        System.out.println("Enter costs");
-        System.out.println("Perth-Dundee(60): ");
-        int PD = scanner.nextInt();
-        System.out.println("Edinburgh-Perth(100): ");
-        int EP = scanner.nextInt();
-        System.out.println("Stirling-Perth(40): ");
-        int SP = scanner.nextInt();
-        System.out.println("Edinburgh-Stirling(50): ");
-        int ES = scanner.nextInt();
-        System.out.println("Glasgow-Stirling(50): ");
-        int GS = scanner.nextInt();
-        System.out.println("Edinburgh-Glasgow(70): ");
-        int EG = scanner.nextInt();
-        System.out.println("\n");
+        for (String[] edge : edges) {
+            g.addVertex(edge[0]);
+            g.addVertex(edge[1]);
+            g.addEdge(edge[0], edge[1], Integer.parseInt(edge[2]));
+        }
 
-        shortestPath(EG + GS + SP + PD, ES + SP + PD, EP + PD);
+        System.out.println("Shortest path from Edinburgh to Dundee:");
+        g.findShortestPath("Edinburgh", "Dundee");
     }
 }
